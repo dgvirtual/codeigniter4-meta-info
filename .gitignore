@@ -1,0 +1,4 @@
+/.php-cs-fixer-dist.php
+/composer.lock
+/scraps.php.temp
+/tests

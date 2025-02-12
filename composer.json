@@ -1,0 +1,47 @@
+{
+  "name": "dgvirtual/codeigniter4-meta-info",
+  "description": "Codeigniter4 library enabling use of Entity-Attribute-Value style storage for additional fields of models.",
+  "type": "library",
+  "keywords": [
+    "codeigniter",
+    "codeigniter4",
+    "bonfire",
+    "EAV"
+  ],
+  "homepage": "https://github.com/dgvirtual/codeigniter4-meta-info",
+  "require": {
+    "php": "^7.4 || ^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dgvirtual\\MetaInfo\\": "src/"
+    }
+  },
+  "require-dev": {
+    "codeigniter4/devkit": "^1.3",
+    "phpunit/phpunit": "^9.5",
+    "codeigniter4/framework": "^4.5"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Donatas Glodenis",
+      "email": "dg@lapas.info"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "style": "vendor/bin/php-cs-fixer src/ tests/ --dry-run",
+    "style-fix": "vendor/bin/php-cs-fixer src/ tests/ --dry-run"
+  }
+}
