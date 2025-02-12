@@ -105,7 +105,7 @@ Add the `HasMeta` trait and a protected `$configClass` property with a string va
 Config class containing `$metaFields` array, to the Entity class that represents your resource.
 
 ```php
-use Bonfire\Traits\HasMeta;
+use Dgvirtual\MetaInfo\Traits\HasMeta;
 use CodeIgniter\Entity;
 
 class User extends Entity
@@ -142,11 +142,11 @@ var_dump($meta);
 // Returns:
 [
     'resource_id' => 123,
-    'class' => 'Bonfire\Users\User',
+    'class' => 'App\Entities\User',
     'key' => 'blog',
     'value' => 'https://example.com',
-    'created_at' => '2021-01-12 12:31:12',
-    'updated_at' => '2021-01-12 12:31:12',
+    'created_at' => '2025-01-12 12:31:12',
+    'updated_at' => '2025-01-12 12:31:12',
 ]
 ```
 
@@ -284,12 +284,12 @@ If you would like to contribute to this project, please fork the repository and 
 
 ## Credits
 
-This project is an adaptation of Bonfire2 Users meta info functionality for
+This library is an adaptation of Bonfire2 Users meta info functionality for
 general CodeIgniter 4 use. Bonfire2 was created by Lonnie Ezell
 <lonnieje@gmail.com> and contributors. For more information, visit the
 [Bonfire2 project](https://github.com/lonnieezell/Bonfire2).
 
-This library was created (partly adapting Bonfire2 code) by Donatas Glodenis. You can reach out to
+This library was created by Donatas Glodenis. You can reach out to
 me at [dg@lapas.info] for any questions or feedback.
 
 ## License

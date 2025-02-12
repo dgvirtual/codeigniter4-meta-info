@@ -7,9 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * Significant part of the code is borrowed from Bonfire2
+ * Significant part of the code is adapted from Bonfire2
  * project, (c) Lonnie Ezell <lonnieje@gmail.com>
- *
  */
 
 namespace Dgvirtual\Demo\Entities;

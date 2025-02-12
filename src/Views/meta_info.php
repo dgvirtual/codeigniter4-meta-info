@@ -11,7 +11,7 @@
                         <input type="hidden" name="meta[<?= strtolower($field) ?>]" value="false">
                         <input type="checkbox" class="form-check-input" name="meta[<?= strtolower($field) ?>]"
                             value="true" <?= set_checkbox('meta.' . strtolower($field), 'true', ($user->meta(strtolower($field))) === 'true') ?>>
-                        <?php if (!isset($info['label'])) : ?>
+                        <?php if (! isset($info['label'])) : ?>
                             <label for="meta[<?= $field ?>]"
                                    class="form-check-label"><?= esc(ucwords(strtolower(str_replace(['-', '_'], ' ', $field)))) ?></label>
                         <?php else : ?>
@@ -29,7 +29,7 @@
                             ><?= old('meta.' . strtolower($field), $user->meta(strtolower($field)) ?? '') ?></textarea>
                         <?= validation_show_error('meta.' . $field) ?>
                     </div>
-                <?php elseif (in_array($info['type'], ['text', 'number', 'password', 'email', 'tel', 'url', 'date', 'time', 'week', 'month', 'color'])) : ?>
+                <?php elseif (in_array($info['type'], ['text', 'number', 'password', 'email', 'tel', 'url', 'date', 'time', 'week', 'month', 'color'], true)) : ?>
                     <div class="form-group col-12 col-lg-6">
                         <?php if (! isset($info['label'])) : ?>
                             <label for="meta[<?= $field ?>]" class="form-label"><?= esc(ucwords(strtolower(str_replace(['-', '_'], ' ', $field)))) ?></label>

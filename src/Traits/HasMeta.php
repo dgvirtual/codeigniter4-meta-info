@@ -7,9 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * Significant part of the code is borrowed from Bonfire2
+ * Significant part of the code is adapted from Bonfire2
  * project, (c) Lonnie Ezell <lonnieje@gmail.com>
- *
  */
 
 namespace Dgvirtual\MetaInfo\Traits;
@@ -110,7 +109,6 @@ trait HasMeta
         }
 
         return $data;
-
     }
 
     /**
@@ -196,13 +194,12 @@ trait HasMeta
     }
 
     /**
-    * Deletes all meta values for an entity, usually on its deletion
-    *
-    * @return mixed
-    */
+     * Deletes all meta values for an entity, usually on its deletion
+     *
+     * @return mixed
+     */
     public function deleteResourceMeta()
     {
-
         // Delete stuff
         $result = model(MetaModel::class)
             ->where('class', static::class)
@@ -318,16 +315,15 @@ trait HasMeta
             }
 
             foreach ($rows as $name => $row) {
-
                 $name = strtolower($name);
                 if (! empty($prefix)) {
                     $name = "{$prefix}.{$name}";
                 }
 
-                if (isset($row['label']) && isset($row['validation'])) {
+                if (isset($row['label'], $row['validation'])) {
                     $rules[$name] = [
                         'label' => $row['label'],
-                        'rules' => $row['validation']
+                        'rules' => $row['validation'],
                     ];
                 } elseif (isset($row['validation'])) {
                     $rules[$name] = $row['validation'];

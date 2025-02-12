@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  *
- * Significant part of the code is borrowed from Bonfire2
+ * Significant part of the code is adapted from Bonfire2
  * project, (c) Lonnie Ezell <lonnieje@gmail.com>
  */
 
@@ -44,14 +44,14 @@ class CreateMetaInfoTable extends Migration
                 'null' => true,
             ],
             'created_at' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => '100',
-                'null' => true,
+                'null'       => true,
             ],
             'updated_at' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => '100',
-                'null' => true,
+                'null'       => true,
             ],
         ]);
         $this->forge->addPrimaryKey('id');

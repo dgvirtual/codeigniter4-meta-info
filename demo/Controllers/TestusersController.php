@@ -6,7 +6,6 @@
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
- *
  */
 
 namespace Dgvirtual\Demo\Controllers;
@@ -15,16 +14,13 @@ use CodeIgniter\Controller;
 use Dgvirtual\Demo\Entities\Testuser;
 use Dgvirtual\Demo\Models\TestuserModel;
 
-
 /**
  * Class TestusersController
- *
- * @package Dgvirtual\Demo\Controllers
  */
 class TestusersController extends Controller
 {
-
     public $model;
+
     /**
      * TestusersController constructor.
      */
@@ -44,7 +40,7 @@ class TestusersController extends Controller
         $term = $this->request->getGet('term') ?? '';
 
         $data['users'] = $this->model->search($term);
-        $data['term'] = $term;
+        $data['term']  = $term;
 
         return view('Dgvirtual\Demo\testusers\index', $data);
     }
@@ -57,7 +53,7 @@ class TestusersController extends Controller
     public function create()
     {
         return view('Dgvirtual\Demo\testusers\create', [
-            'errors' => service('session')->getFlashData('errors')
+            'errors' => service('session')->getFlashData('errors'),
         ]);
     }
 
@@ -65,16 +61,17 @@ class TestusersController extends Controller
      * Show edit form.
      *
      * @param int $id
+     *
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function edit($id)
     {
-        $user = $this->model->find($id);
+        $user       = $this->model->find($id);
         $user->meta = $user->allMetaKeyValue() ?? [];
 
         return view('Dgvirtual\Demo\testusers\edit', [
-            'user' => $user,
-            'errors' => service('session')->getFlashData('errors')
+            'user'   => $user,
+            'errors' => service('session')->getFlashData('errors'),
         ]);
     }
 
@@ -82,6 +79,7 @@ class TestusersController extends Controller
      * Store or update user.
      *
      * @param int|null $id
+     *
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function save($id = null)
@@ -94,8 +92,8 @@ class TestusersController extends Controller
         service('validation')->setRules(
             array_merge(
                 $this->model->validationRules,
-                $user->metaValidationRules('meta')
-            )
+                $user->metaValidationRules('meta'),
+            ),
         );
 
         if (! service('validation')->run($this->request->getPost())) {
@@ -111,11 +109,12 @@ class TestusersController extends Controller
         if (! $user->hasChanged()) {
             $user->syncMeta($meta);
         } elseif ($this->model->save($user)) {
-            $user->id = $user->id ?? $this->model->getInsertID();
+            $user->id ??= $this->model->getInsertID();
             $user->syncMeta($meta);
         } else {
             return redirect()->back()->withInput();
         }
+
         return redirect()->to('/testusers');
     }
 
@@ -123,6 +122,7 @@ class TestusersController extends Controller
      * Delete user.
      *
      * @param int $id
+     *
      * @return \CodeIgniter\HTTP\ResponseInterface
      */
     public function delete($id)

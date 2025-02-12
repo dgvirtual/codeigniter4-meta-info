@@ -6,7 +6,6 @@
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
- *
  */
 
 namespace Dgvirtual\Demo\Database\Migrations;
@@ -18,33 +17,33 @@ class CreateTestusersTable extends Migration
     public function up()
     {
         $this->forge->addField([
-            'id'          => [
+            'id' => [
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'username'    => [
+            'username' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'first_name'  => [
+            'first_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'last_name'   => [
+            'last_name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'created_at'  => [
-                'type' => 'VARCHAR',
+            'created_at' => [
+                'type'       => 'VARCHAR',
                 'constraint' => '100',
-                'null' => true,
+                'null'       => true,
             ],
-            'updated_at'  => [
-                'type' => 'VARCHAR',
+            'updated_at' => [
+                'type'       => 'VARCHAR',
                 'constraint' => '100',
-                'null' => true,
+                'null'       => true,
             ],
         ]);
         $this->forge->addKey('id', true);

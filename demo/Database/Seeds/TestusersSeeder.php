@@ -6,7 +6,6 @@
  *
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
- *
  */
 
 namespace Dgvirtual\Demo\Database\Seeds;
@@ -22,7 +21,7 @@ class TestusersSeeder extends Seeder
 
         for ($i = 0; $i < 20; $i++) {
             $dateString = $faker->dateTime->format('Y-m-d H:i:s');
-            $data = [
+            $data       = [
                 'username'   => $faker->userName,
                 'first_name' => $faker->firstName,
                 'last_name'  => $faker->lastName,
