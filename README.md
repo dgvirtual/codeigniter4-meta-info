@@ -5,22 +5,6 @@ used with your models. It provides meta info functionality for CodeIgniter4, der
 It allows storing user-configurable bits of information for user entity classes without the need to modify
 those classes.
 
-## Installation
-
-To install this package, you can use Composer. Run the following command in your terminal:
-
-```cli
-    composer require dgvirtual/codeigniter4-meta-info
-```
-
-Then run the migration to setup the database table meta_info:
-
-To install this package, you can use Composer. Run the following command in your terminal:
-
-```cli
-    php spark migrate -n \Dgvirtual\MetaInfo
-```
-
 ## Usage case
 
 Imagine you have a users table to store data of users. It may be that it belongs to some package that
@@ -33,62 +17,38 @@ a separate table, without constantly changing the database schema.
 Using this library you can add additional information to a user. Moreover, such data can be seamlessly integrated
 into the Create/Edit User form so you do not have to modify that manually.
 
-## Demo
+## Installation
 
-A demo is provided with this library. Enabling demo would create a table `testusers` in your DB, which you can remove later.
+To install this package, you can use Composer. Run the following commands in your terminal:
 
-Steps to enable the demo:
+```cli
+composer config minimum-stability dev
+composer require dgvirtual/codeigniter4-meta-info
+```
 
-1. update Config\Autoload file to include demo namespace into the list of available namespaces:
+Then run the migration to setup the database table meta_info (assuming you already configured your database):
 
-    ```php
-    public $psr4 = [
-        APP_NAMESPACE        => APPPATH,
-        'Dgvirtual\Demo'     => APPPATH . 'vendor/dgvirtual/codeigniter4-meta-info/demo',
-    ];
-    ```
-
-2. Add the table with demo data via migrations and seed it with demo data:
-
-    ```cli
-        php spark migrate -n \Dgvirtual\Demo
-        php spark db:seed \Dgvirtual\Demo\Database\Seeds\TestusersSeeder
-    ```
-
-3. Copy this into your Config\Routes.php file:
-
-    ```php
-        $routes->group('testusers', ['namespace' => 'Dgvirtual\Demo\Controllers'], static function ($routes) {
-            $routes->get('/', 'TestusersController::index');
-            $routes->get('create', 'TestusersController::create');
-            $routes->get('edit/(:num)', 'TestusersController::edit/$1');
-            $routes->post('save', 'TestusersController::save');
-            $routes->post('save/(:num)', 'TestusersController::save/$1');
-            $routes->post('delete/(:num)', 'TestusersController::delete/$1');
-            $routes->cli('testing/(:num)', 'TestusersController::testing/$1');
-        });
-    ```
-
-Now you can open the demo at https://localhost:8080/testusers
-
-To disable the demo, please undo the above-mentioned changes in files. To remove the demo table, use
-Codeigniter4 [migration rollback functionality](https://codeigniter4.github.io/userguide/dbmgmt/migration.html#migrate-rollback).
+```cli
+php spark migrate -n \Dgvirtual\MetaInfo
+```
 
 ## Setup 1. Defining Meta Fields
+
+If you want to get a functionality preview, you can enable the demo code (read the section [demo](#demo) below).
 
 First you create a config class for your users table, `app/Config/Users.php`. Put a property `$metaFields` into
 that class:
 
 ```php
-    public $metaFields = [
-        'Social Links' => [
-            'blog' => [
-              'label' => 'Blog', // optional
-              'type' => 'text', // optional
-              'validation' => 'permit_empty|valid_url_strict'
-            ],
+public $metaFields = [
+    'Social Links' => [
+        'blog' => [
+            'label' => 'Blog', // optional
+            'type'  => 'text', // optional
+            'validation' => 'permit_empty|valid_url_strict'
         ],
-    ];
+    ],
+];
 ```
 
 In the above example `Social links` is a subcategory that can later be used to build a categorized view for the
@@ -192,11 +152,11 @@ meta values, insert new ones, and delete any ones that were not passed in. Usefu
 a form and updating all the values at once.
 
 ```php
-    $post = [
-        'blog' => 'https://example.com',
-        'fb' => 'johnny.rose'
-    ];
-    $user->syncMeta($post);
+$post = [
+    'blog' => 'https://example.com',
+    'fb' => 'johnny.rose'
+];
+$user->syncMeta($post);
 ```
 
 ### metaValidationRules(string $prefix=null)
@@ -206,14 +166,14 @@ ready to be used within CodeIgniter's validation library. If your form groups th
 you may specify the prefix to append to the field names so that validation will pick it up properly.
 
 ```php
-    $rules = $user->metaValidationRules('meta');
+$rules = $user->metaValidationRules('meta');
 
-    var_dump($rules);
+var_dump($rules);
 
-    // Returns:
-    [
-        'meta.blog' => 'required|string|valid_url',
-    ]
+// Returns:
+[
+    'meta.blog' => 'required|string|valid_url',
+]
 ```
 
 ## Using library for searches
@@ -243,40 +203,81 @@ write the `search()` method in your model employing the trait methods
 `orLikeInMetaInfo()` when constructing the query; for example:
 
 ```php
-    public function search(string $term, int $limit = 100, int $offset = 0): array
-    {
-        $termInMeta = config(\Config\Users::class)->includeMetaFieldsInSearch;
+public function search(string $term, int $limit = 100, int $offset = 0): array
+{
+    $termInMeta = config(\Config\Users::class)->includeMetaFieldsInSearch;
 
-        // First: get the expanded select clause that includes info from meta_info table
-        $selectClause = $this->generateMetaSelectClause($termInMeta, \App\Entities\User::class);
+    // First: get the expanded select clause that includes info from meta_info table
+    $selectClause = $this->generateMetaSelectClause($termInMeta, \App\Entities\User::class);
 
-        $query = $this->select($selectClause)->distinct();
+    $query = $this->select($selectClause)->distinct();
+
+    if (!empty($termInMeta)) {
+        // Second: generate the join statement
+        // here the User::class is string representation of the entity class
+        $query->joinMetaInfo(\App\Entities\User::class, $this->table);
+    }
+
+    if ($term) {
+        $query->like('first_name', $term, 'right', true, true)
+                ->orLike('last_name', $term, 'right', true, true)
+                ->orLike('username', $term, 'right', true, true);
 
         if (!empty($termInMeta)) {
-            // Second: generate the join statement
-            // here the User::class is string representation of the entity class
-            $query->joinMetaInfo(\App\Entities\User::class, $this->table);
-        }
-
-        if ($term) {
-            $query->like('first_name', $term, 'right', true, true)
-                    ->orLike('last_name', $term, 'right', true, true)
-                    ->orLike('username', $term, 'right', true, true);
-
-            if (!empty($termInMeta)) {
-                foreach ($termInMeta as $metaField) {
-                    // Third: perform the search through like statements
-                    $query->orLikeInMetaInfo($metaField, $term, 'both', true, true);
-                }
+            foreach ($termInMeta as $metaField) {
+                // Third: perform the search through like statements
+                $query->orLikeInMetaInfo($metaField, $term, 'both', true, true);
             }
         }
-
-        return $query->findAll($limit, $offset);
     }
+
+    return $query->findAll($limit, $offset);
+}
 ```
 
 This method can now be used in controllers to perform searches and get information with data from
 meta_info table neatly integrated into the data from the main table.
+
+## Demo
+
+A demo is provided with this library. Enabling demo would create a table `testusers` in your DB, which you can remove later.
+
+Steps to enable the demo:
+
+1. update Config\Autoload file to include demo namespace into the list of available namespaces:
+
+    ```php
+    public $psr4 = [
+        APP_NAMESPACE        => APPPATH,
+        'Dgvirtual\Demo'     => APPPATH . 'vendor/dgvirtual/codeigniter4-meta-info/demo',
+    ];
+    ```
+
+2. Add the table with demo data via migrations and seed it with demo data:
+
+    ```cli
+    php spark migrate -n \Dgvirtual\Demo
+    php spark db:seed \Dgvirtual\Demo\Database\Seeds\TestusersSeeder
+    ```
+
+3. Copy this into your Config\Routes.php file:
+
+    ```php
+    $routes->group('testusers', ['namespace' => 'Dgvirtual\Demo\Controllers'], static function ($routes) {
+        $routes->get('/', 'TestusersController::index');
+        $routes->get('create', 'TestusersController::create');
+        $routes->get('edit/(:num)', 'TestusersController::edit/$1');
+        $routes->post('save', 'TestusersController::save');
+        $routes->post('save/(:num)', 'TestusersController::save/$1');
+        $routes->post('delete/(:num)', 'TestusersController::delete/$1');
+        $routes->cli('testing/(:num)', 'TestusersController::testing/$1');
+    });
+    ```
+
+Now you can open the demo at https://localhost:8080/testusers
+
+To disable the demo, please undo the above-mentioned changes in files. To remove the demo table, use
+Codeigniter4 [migration rollback functionality](https://codeigniter4.github.io/userguide/dbmgmt/migration.html#migrate-rollback).
 
 ## Contributing
 
