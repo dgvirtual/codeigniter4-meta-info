@@ -23,7 +23,14 @@ trait WithMeta
      */
     public function joinMetaInfo($className)
     {
-        $this->join('meta_info m', $this->table . '.id = m.resource_id AND m.class = "' . $className . '"', 'left');
+        // TODO: transfer change with prefix to bonfire
+        $modelTable    = "{$this->db->DBPrefix}{$this->table}";
+        $metaInfoTable = $this->db->DBPrefix . 'meta_info';
+        $this->join(
+            $metaInfoTable,
+            "{$modelTable}.id = {$metaInfoTable}.resource_id AND {$metaInfoTable}.class = '{$className}'",
+            'left',
+        );
 
         return $this;
     }
@@ -41,20 +48,30 @@ trait WithMeta
      */
     public function orLikeInMetaInfo($field, $match, $side = 'both', $escape = null, $insensitiveSearch = false)
     {
+        $metaInfoTable = $this->db->DBPrefix . 'meta_info';
         $this->orGroupStart()
-            ->where('m.key', $field)
-            ->like('m.value', $match, $side, $escape, $insensitiveSearch)
+            ->where("{$metaInfoTable}.key", $field)
+            ->like("{$metaInfoTable}.value", $match, $side, $escape, $insensitiveSearch)
             ->groupEnd();
 
         return $this;
     }
 
-    // Custom method to encapsulate orGroupStart block for "where" mode
-    public function orMetaInfoWhere($key, $value)
+    /**
+     * Custom method to do a where query on meta_info table during search.
+     *
+     * @param string $field  The key to search for.
+     * @param string $value  The value to search for.
+     * @param bool   $escape Whether to escape the value.
+     *
+     * @return $this
+     */
+    public function orWhereInMetaInfo($field, $value, $escape = null)
     {
+        $metaInfoTable = $this->db->DBPrefix . 'meta_info';
         $this->orGroupStart()
-            ->where('m.key', $key)
-            ->where('m.value', $value)
+            ->where("{$metaInfoTable}.key", $field)
+            ->where("{$metaInfoTable}.value", $value, $escape)
             ->groupEnd();
 
         return $this;
@@ -63,7 +80,9 @@ trait WithMeta
     // Custom method to generate the MAX(CASE WHEN ...) SQL expression
     public function metaInfoColumn($column)
     {
-        return "MAX(CASE WHEN m.key = \"{$column}\" THEN m.value END) AS {$column}";
+        $metaInfoTable = $this->db->DBPrefix . 'meta_info';
+
+        return "MAX(CASE WHEN {$metaInfoTable}.key = \"{$column}\" THEN {$metaInfoTable}.value END) AS {$column}";
     }
 
     /**
@@ -77,10 +96,13 @@ trait WithMeta
      */
     public function generateMetaSelectClause(array $metaFields, string $className): string
     {
-        $selectClause = "{$this->table}.*";
+        // TODO: transfer change with prefix to bonfire
+        $modelTable    = "{$this->db->DBPrefix}{$this->table}";
+        $metaInfoTable = $this->db->DBPrefix . 'meta_info';
+        $selectClause  = "{$modelTable}.*";
 
         foreach ($metaFields as $metaField) {
-            $selectClause .= ", (SELECT value FROM meta_info WHERE meta_info.resource_id = {$this->table}.id AND meta_info.class = '{$className}' AND meta_info.key = '{$metaField}' LIMIT 1) as {$metaField}";
+            $selectClause .= ", (SELECT value FROM {$metaInfoTable} WHERE {$metaInfoTable}.resource_id = {$modelTable}.id AND {$metaInfoTable}.class = '{$className}' AND {$metaInfoTable}.key = '{$metaField}' LIMIT 1) as {$metaField}";
         }
 
         return $selectClause;

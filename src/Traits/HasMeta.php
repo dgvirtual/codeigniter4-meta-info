@@ -142,14 +142,15 @@ trait HasMeta
                 ->where('class', static::class)
                 ->where('resource_id', $this->id)
                 ->where('key', $key)
-                ->update(['value' => $value]);
+                // TODO: transfer to bonfire2
+                ->set(['value' => $value])
+                ->update();
         }
 
         // Insert
         else {
             $result = $model
-                ->where('class', static::class)
-                ->where('resource_id', $this->id)
+            // TODO: transfer deletion to bonfire2
                 ->insert([
                     'class'       => static::class,
                     'resource_id' => $this->id,
@@ -195,7 +196,7 @@ trait HasMeta
 
     /**
      * Deletes all meta values for an entity, usually on its deletion
-     *
+     * TODO: transfer to bonfire2, use with recycler deletion;
      * @return mixed
      */
     public function deleteResourceMeta()
