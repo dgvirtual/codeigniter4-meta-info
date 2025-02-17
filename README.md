@@ -104,7 +104,7 @@ var_dump($meta);
     'resource_id' => 123,
     'class' => 'App\Entities\User',
     'key' => 'blog',
-    'value' => 'https://example.com',
+    'value' => 'http://example.com',
     'created_at' => '2025-01-12 12:31:12',
     'updated_at' => '2025-01-12 12:31:12',
 ]
@@ -153,7 +153,7 @@ a form and updating all the values at once.
 
 ```php
 $post = [
-    'blog' => 'https://example.com',
+    'blog' => 'http://example.com',
     'fb' => 'johnny.rose'
 ];
 $user->syncMeta($post);
@@ -257,7 +257,7 @@ Steps to enable the demo:
 
     ```cli
     php spark migrate -n \Dgvirtual\Demo
-    php spark db:seed \Dgvirtual\Demo\Database\Seeds\TestusersSeeder
+    php spark db:seed \Tests\Support\Database\Seeds\TestusersSeeder
     ```
 
 3. Copy this into your Config\Routes.php file:
