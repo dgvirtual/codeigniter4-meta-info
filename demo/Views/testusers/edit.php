@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?>
+<?= $this->extend('Dgvirtual\Demo\Views\layouts\main') ?>
 
 <?php if (isset($errors)) {
     var_dump($errors);

@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/main') ?>
+<?= $this->extend('Dgvirtual\Demo\Views\layouts\main') ?>
 
 <?= $this->section('content') ?>
     <h1>Users List</h1>
