@@ -137,13 +137,4 @@ class TestusersController extends Controller
         return redirect()->to('/testusers');
     }
 
-    public function testing(int $id)
-    {
-        $user = $this->model->find($id);
-
-        d($user);
-        $user->meta = $user->allMetaKeyValue() ?? [];
-
-        dd($user);
-    }
 }
