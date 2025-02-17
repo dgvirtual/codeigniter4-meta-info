@@ -14,9 +14,13 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
 use Config\Services;
+use Dgvirtual\Demo\Controllers\TestusersController;
 use Tests\Support\DatabaseHelperTrait;
 
-class DemoFeaturesTest extends CIUnitTestCase
+/**
+ * @internal
+ */
+final class DemoFeaturesTest extends CIUnitTestCase
 {
     use DatabaseTestTrait;
     use FeatureTestTrait;
@@ -40,12 +44,15 @@ class DemoFeaturesTest extends CIUnitTestCase
 
         // Define the routes needed for the tests
         $routes = Services::routes();
-        $routes->get('testusers', '\Dgvirtual\Demo\Controllers\TestusersController::index');
-        $routes->get('testusers/create', '\Dgvirtual\Demo\Controllers\TestusersController::create');
-        $routes->get('testusers/edit/(:num)', '\Dgvirtual\Demo\Controllers\TestusersController::edit/$1');
-        $routes->post('testusers/save', '\Dgvirtual\Demo\Controllers\TestusersController::save');
-        $routes->post('testusers/save/(:num)', '\Dgvirtual\Demo\Controllers\TestusersController::save/$1');
-        $routes->post('testusers/delete/(:num)', '\Dgvirtual\Demo\Controllers\TestusersController::delete/$1');
+
+        // Define the routes needed for the tests
+        $routes = Services::routes();
+        $routes->get('testusers', [TestusersController::class, 'index']);
+        $routes->get('testusers/create', [TestusersController::class, 'create']);
+        $routes->get('testusers/edit/(:num)', [TestusersController::class, 'edit/$1']);
+        $routes->post('testusers/save', [TestusersController::class, 'save']);
+        $routes->post('testusers/save/(:num)', [TestusersController::class, 'save/$1']);
+        $routes->post('testusers/delete/(:num)', [TestusersController::class, 'delete/$1']);
     }
 
     public function testIndex()
@@ -101,7 +108,7 @@ class DemoFeaturesTest extends CIUnitTestCase
         // Check if the meta information is saved correctly
         $this->seeInDatabase('meta_info', [
             'class'       => \Dgvirtual\Demo\Entities\Testuser::class,
-            'resource_id' =>  12, // manual!
+            'resource_id' => 12, // manual!
             'key'         => 'blog',
             'value'       => 'https://mynewblog.example.com',
         ]);
@@ -129,7 +136,6 @@ class DemoFeaturesTest extends CIUnitTestCase
         ]);
     }
 
-    
     public function testSaveExisting()
     {
         $data = [
@@ -147,7 +153,7 @@ class DemoFeaturesTest extends CIUnitTestCase
 
         // Check if the database contains the new entry
         $this->seeInDatabase('testusers', [
-            'id'     => 1,
+            'id'         => 1,
             'username'   => 'testuser22',
             'first_name' => 'Test22',
             'last_name'  => 'User22',
@@ -159,7 +165,7 @@ class DemoFeaturesTest extends CIUnitTestCase
         // Check if the meta information is saved correctly
         $this->seeInDatabase('meta_info', [
             'class'       => \Dgvirtual\Demo\Entities\Testuser::class,
-            'resource_id' =>  1, // manual!
+            'resource_id' => 1, // manual!
             'key'         => 'blog',
             'value'       => 'https://blog22.example.com',
         ]);
