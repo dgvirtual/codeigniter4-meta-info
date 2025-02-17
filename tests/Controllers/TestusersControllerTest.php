@@ -6,7 +6,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\ControllerTestTrait;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Dgvirtual\Demo\Controllers\TestusersController;
-use Tests\Support\Traits\DatabaseHelperTrait;
+use Tests\Support\DatabaseHelperTrait;
 
 /**
  * @internal

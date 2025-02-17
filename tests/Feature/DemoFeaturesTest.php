@@ -6,7 +6,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
 use Config\Services;
-use Tests\Support\Traits\DatabaseHelperTrait;
+use Tests\Support\DatabaseHelperTrait;
 
 class DemoFeaturesTest extends CIUnitTestCase
 {

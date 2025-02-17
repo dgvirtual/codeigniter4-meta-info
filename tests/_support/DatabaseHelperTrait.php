@@ -1,6 +1,14 @@
 <?php
 
-namespace Tests\Support\Traits;
+/**
+ * This file is part of the codeigniter4-meta-info library.
+ * (c) Donatas Glodenis <dg@lapas.info>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+namespace Tests\Support;
 
 trait DatabaseHelperTrait
 {
