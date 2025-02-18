@@ -35,9 +35,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.COMPOSER_CACHE_FILES_DIR }}
-          key:
-            ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-${{
-            hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
@@ -56,7 +54,7 @@ jobs:
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ matrix.php-version }}-${{ github.run_id }}
           path: test-results/
 
       - name: Upload coverage reports to Codecov
