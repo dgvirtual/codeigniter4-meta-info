@@ -136,5 +136,4 @@ class TestusersController extends Controller
 
         return redirect()->to('/testusers');
     }
-
 }

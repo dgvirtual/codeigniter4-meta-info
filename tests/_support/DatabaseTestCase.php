@@ -106,7 +106,7 @@ abstract class DatabaseTestCase extends CIUnitTestCase
         $query   = $db->table($db->DBPrefix . $tableName)->get();
         $results = $query->getResultArray();
 
-        echo "Content of table: ". $db->DBPrefix . $tableName ."\n";
+        echo 'Content of table: ' . $db->DBPrefix . $tableName .  \PHP_EOL;
 
         foreach ($results as $row) {
             print_r($row);

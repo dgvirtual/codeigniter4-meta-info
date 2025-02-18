@@ -303,7 +303,6 @@ final class HasMetaTest extends DatabaseTestCase
         $rules = $this->user->metaValidationRules();
         $this->assertEmpty($rules);
 
-
         // Ensure we have some fields to test against.
         $config             = config('Testusers');
         $config->metaFields = [
@@ -326,7 +325,7 @@ final class HasMetaTest extends DatabaseTestCase
         // Test without prefix
         $rules         = $this->user->metaValidationRules();
         $expectedRules = [
-            //'foo' => [], this should be skipped
+            // 'foo' => [], this should be skipped
             'bar' => [
                 'label' => 'Bar',
                 'rules' => 'required|string',
@@ -337,6 +336,5 @@ final class HasMetaTest extends DatabaseTestCase
             ],
         ];
         $this->assertSame($expectedRules, $rules);
-
     }
 }

@@ -197,6 +197,7 @@ trait HasMeta
     /**
      * Deletes all meta values for an entity, usually on its deletion
      * TODO: transfer to bonfire2, use with recycler deletion;
+     *
      * @return mixed
      */
     public function deleteResourceMeta()
