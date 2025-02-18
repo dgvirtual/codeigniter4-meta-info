@@ -10,13 +10,16 @@
 
 namespace Tests\Support;
 
-use Tests\Support\Database\Seeds\TestusersSeeder;
-use Tests\Support\Database\Seeds\MetaInfoSeeder;
-use Config\Database;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
+use Config\Database;
+use Tests\Support\Database\Seeds\MetaInfoSeeder;
+use Tests\Support\Database\Seeds\TestusersSeeder;
 
 /**
+ * @method void printDatabaseSchema()
+ * @method void printTableContent($tableName)
+ *
  * @internal
  */
 abstract class DatabaseTestCase extends CIUnitTestCase
@@ -59,8 +62,6 @@ abstract class DatabaseTestCase extends CIUnitTestCase
     /**
      * The seed file(s) used for all tests within this test case.
      * Should be fully-namespaced or relative to $basePath
-     *
-     * @var array|string
      */
     protected $seed = [
         TestusersSeeder::class,
@@ -76,23 +77,21 @@ abstract class DatabaseTestCase extends CIUnitTestCase
     protected $basePath = SUPPORTPATH . 'Database/';
 
     /**
-     * Use for troubleshooting the tests: print the database schema.
-     *
-     * @return void
+     * Prints the database schema.
      */
-    private function outputDatabaseSchema()
+    private function printDatabaseSchema(): void
     {
         $db     = Database::connect();
         $tables = $db->listTables();
 
         foreach ($tables as $table) {
-            echo "Table: {$table}\n";
+            echo "Table: {$table}" . \PHP_EOL;
             $fields = $db->getFieldData($table);
 
             foreach ($fields as $field) {
-                echo "Field: {$field->name}, Type: {$field->type}, Max Length: {$field->max_length}\n";
+                echo "Field: {$field->name}, Type: {$field->type}, Max Length: {$field->max_length}" . \PHP_EOL;
             }
-            echo "\n";
+            echo \PHP_EOL;
         }
     }
 
@@ -100,20 +99,18 @@ abstract class DatabaseTestCase extends CIUnitTestCase
      * Prints the content of a table.
      *
      * @param string $tableName The name of the table to print.
-     *
-     * @return void
      */
-    protected function printTableContent(string $tableName)
+    protected function printTableContent(string $tableName): void
     {
         $db      = Database::connect();
         $query   = $db->table($db->DBPrefix . $tableName)->get();
         $results = $query->getResultArray();
 
-        echo 'Content of table: ' . $db->DBPrefix . $tableName .  \PHP_EOL;
+        echo 'Content of table: ' . $db->DBPrefix . $tableName . \PHP_EOL;
 
         foreach ($results as $row) {
             print_r($row);
-            echo "\n";
+            echo \PHP_EOL;
         }
     }
 }

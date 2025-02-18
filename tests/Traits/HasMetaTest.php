@@ -31,16 +31,13 @@ final class HasMetaTest extends DatabaseTestCase
     protected $namespace;
 
     /**
-     * @var User
+     * @var Testuser
      */
     private $user;
 
     protected function setUp(): void
     {
         parent::setUp();
-
-        // $user = model(TestuserModel::class)->first();
-        // dd($user);
 
         $this->user = new Testuser();
         $this->user->fill([
@@ -103,6 +100,7 @@ final class HasMetaTest extends DatabaseTestCase
     public function testSaveMetaOnExisting()
     {
         // do not use the default entity from setUp()
+        /** @var Testuser $user */
         $user = model(TestuserModel::class)->find(1);
 
         $newBlog = 'https://blog.example.com';
@@ -123,7 +121,7 @@ final class HasMetaTest extends DatabaseTestCase
         $this->user->saveMeta('foo', 'First piece of info');
         $this->user->saveMeta('bar', 'Some other piece of info');
         $result = $this->user->allMetaKeyValue();
-        $this->assertIsArray($result);
+
         $this->assertSame($result['bar'], 'Some other piece of info');
     }
 
@@ -160,7 +158,7 @@ final class HasMetaTest extends DatabaseTestCase
     public function testDeleteResourceMeta()
     {
         $this->addSomeMeta();
-        $this->assertIsArray($this->user->allMeta());
+
         $this->assertCount(3, $this->user->allMeta());
         $this->user->deleteResourceMeta();
         $this->assertNull($this->user->allMeta());

@@ -17,7 +17,6 @@ trait WithMeta
      *
      * @param string $className The resource entity class namespaced name that the
      *                          data is associated with in meta_info table.
-     * @param string $tableName The name of the table to join meta_info to.
      *
      * @return $this
      */
@@ -90,7 +89,6 @@ trait WithMeta
      *
      * @param array  $metaFields The meta fields to include in the select clause.
      * @param string $className  The class name of the entity.
-     * @param string $tableName  The name of the main table.
      *
      * @return string The generated select clause.
      */

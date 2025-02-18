@@ -10,8 +10,8 @@
 
 namespace Dgvirtual\Demo\Models;
 
-use Dgvirtual\Demo\Config\Testusers;
 use CodeIgniter\Model;
+use Dgvirtual\Demo\Config\Testusers;
 use Dgvirtual\Demo\Entities\Testuser;
 use Dgvirtual\MetaInfo\Traits\WithMeta;
 
@@ -31,7 +31,7 @@ class TestuserModel extends Model
     protected $skipValidation = true;
 
     /**
-     * @var array The validation rules for the model.
+     * The validation rules for the model.
      */
     public $validationRules = [
         'id'       => 'permit_empty|is_natural_no_zero',
@@ -59,7 +59,9 @@ class TestuserModel extends Model
         // Generate the select clause using the WithMeta trait method
         $selectClause = $this->generateMetaSelectClause($termInMeta, Testuser::class);
 
-        $query = $this->select($selectClause)->distinct();
+        $query = $this->select($selectClause);
+        // @phpstan-ignore-next-line
+        $query->distinct();
 
         if (! empty($termInMeta)) {
             // TODO: find a better way to access the Entity to which the data is assigned to join meta_info with
