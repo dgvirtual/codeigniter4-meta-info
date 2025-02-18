@@ -10,6 +10,8 @@
 
 namespace Tests\Controllers;
 
+use Tests\Support\Database\Seeds\TestusersSeeder;
+use Tests\Support\Database\Seeds\MetaInfoSeeder;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\ControllerTestTrait;
 use CodeIgniter\Test\DatabaseTestTrait;
@@ -33,8 +35,8 @@ final class TestusersControllerTest extends CIUnitTestCase
     ];
     protected $seedOnce = false;
     protected $seed     = [
-        'Tests\Support\Database\Seeds\TestusersSeeder',
-        'Tests\Support\Database\Seeds\MetaInfoSeeder',
+        TestusersSeeder::class,
+        MetaInfoSeeder::class,
     ];
     protected $basePath = SUPPORTPATH . 'Database/';
 

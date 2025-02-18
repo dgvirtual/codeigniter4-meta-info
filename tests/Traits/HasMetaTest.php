@@ -33,7 +33,7 @@ final class HasMetaTest extends DatabaseTestCase
     /**
      * @var User
      */
-    protected $user;
+    private $user;
 
     protected function setUp(): void
     {

@@ -10,6 +10,7 @@
 
 namespace Tests;
 
+use Dgvirtual\Demo\Entities\Testuser;
 use Tests\Support\DatabaseTestCase;
 
 /**
@@ -20,7 +21,7 @@ final class SimpleTest extends DatabaseTestCase
     public function testSeedingSuccess()
     {
         $criteria = [
-            'class' => 'Dgvirtual\Demo\Entities\Testuser',
+            'class' => Testuser::class,
             'key'   => 'blog',
             'value' => 'https://somedomain.net',
         ];
@@ -35,7 +36,7 @@ final class SimpleTest extends DatabaseTestCase
 
         // do we have the expected number of entries in db table?
         $criteria = [
-            'class' => 'Dgvirtual\Demo\Entities\Testuser',
+            'class' => Testuser::class,
         ];
         $this->seeNumRecords(5, 'meta_info', $criteria);
     }

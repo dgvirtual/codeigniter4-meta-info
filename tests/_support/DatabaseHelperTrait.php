@@ -10,6 +10,8 @@
 
 namespace Tests\Support;
 
+use Config\Database;
+
 trait DatabaseHelperTrait
 {
     /**
@@ -19,7 +21,7 @@ trait DatabaseHelperTrait
      */
     private function outputDatabaseSchema()
     {
-        $db     = \Config\Database::connect();
+        $db     = Database::connect();
         $tables = $db->listTables();
 
         foreach ($tables as $table) {
@@ -42,7 +44,7 @@ trait DatabaseHelperTrait
      */
     protected function printTableContent(string $tableName)
     {
-        $db      = \Config\Database::connect();
+        $db      = Database::connect();
         $query   = $db->table($db->DBPrefix . $tableName)->get();
         $results = $query->getResultArray();
 

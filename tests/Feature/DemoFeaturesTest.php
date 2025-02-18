@@ -10,6 +10,9 @@
 
 namespace Tests\Feature;
 
+use Tests\Support\Database\Seeds\TestusersSeeder;
+use Tests\Support\Database\Seeds\MetaInfoSeeder;
+use Dgvirtual\Demo\Entities\Testuser;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
@@ -34,8 +37,8 @@ final class DemoFeaturesTest extends CIUnitTestCase
     ];
     protected $seedOnce = false;
     protected $seed     = [
-        'Tests\Support\Database\Seeds\TestusersSeeder',
-        'Tests\Support\Database\Seeds\MetaInfoSeeder',
+        TestusersSeeder::class,
+        MetaInfoSeeder::class,
     ];
 
     protected function setUp(): void
@@ -107,7 +110,7 @@ final class DemoFeaturesTest extends CIUnitTestCase
 
         // Check if the meta information is saved correctly
         $this->seeInDatabase('meta_info', [
-            'class'       => \Dgvirtual\Demo\Entities\Testuser::class,
+            'class'       => Testuser::class,
             'resource_id' => 12, // manual!
             'key'         => 'blog',
             'value'       => 'https://mynewblog.example.com',
@@ -164,7 +167,7 @@ final class DemoFeaturesTest extends CIUnitTestCase
 
         // Check if the meta information is saved correctly
         $this->seeInDatabase('meta_info', [
-            'class'       => \Dgvirtual\Demo\Entities\Testuser::class,
+            'class'       => Testuser::class,
             'resource_id' => 1, // manual!
             'key'         => 'blog',
             'value'       => 'https://blog22.example.com',
@@ -182,7 +185,7 @@ final class DemoFeaturesTest extends CIUnitTestCase
 
         // Check if the meta information is deleted from the database
         $this->dontSeeInDatabase('meta_info', [
-            'class'       => \Dgvirtual\Demo\Entities\Testuser::class,
+            'class'       => Testuser::class,
             'resource_id' => 1,
         ]);
     }

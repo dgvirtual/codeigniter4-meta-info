@@ -116,7 +116,7 @@ trait HasMeta
      *
      * @return bool
      */
-    public function hasMeta(string $key)
+    public function hasMeta(string $key): bool
     {
         $this->hydrateMeta();
 
@@ -240,7 +240,7 @@ trait HasMeta
                 continue;
             }
 
-            foreach ($fields as $field => $info) {
+            foreach (array_keys($fields) as $field) {
                 $field    = strtolower($field);
                 $existing = array_key_exists($field, $this->meta);
 
@@ -317,7 +317,7 @@ trait HasMeta
             }
 
             foreach ($rows as $name => $row) {
-                $name = strtolower($name);
+                $name = strtolower((string) $name);
                 if (! empty($prefix)) {
                     $name = "{$prefix}.{$name}";
                 }

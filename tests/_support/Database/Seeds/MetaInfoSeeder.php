@@ -10,6 +10,7 @@
 
 namespace Tests\Support\Database\Seeds;
 
+use Dgvirtual\Demo\Entities\Testuser;
 use CodeIgniter\Database\Seeder;
 
 class MetaInfoSeeder extends Seeder
@@ -20,7 +21,7 @@ class MetaInfoSeeder extends Seeder
             [
                 'id'          => 6,
                 'resource_id' => 1,
-                'class'       => 'Dgvirtual\Demo\Entities\Testuser',
+                'class'       => Testuser::class,
                 'key'         => 'blog',
                 'value'       => 'https://example.com',
                 'created_at'  => '2025-02-12 17:03:11',
@@ -29,7 +30,7 @@ class MetaInfoSeeder extends Seeder
             [
                 'id'          => 7,
                 'resource_id' => 2,
-                'class'       => 'Dgvirtual\Demo\Entities\Testuser',
+                'class'       => Testuser::class,
                 'key'         => 'blog',
                 'value'       => 'https://somedomain.net',
                 'created_at'  => '2025-02-12 17:03:18',
@@ -38,7 +39,7 @@ class MetaInfoSeeder extends Seeder
             [
                 'id'          => 8,
                 'resource_id' => 3,
-                'class'       => 'Dgvirtual\Demo\Entities\Testuser',
+                'class'       => Testuser::class,
                 'key'         => 'blog',
                 'value'       => 'https://myblog.lt',
                 'created_at'  => '2025-02-12 17:03:25',
@@ -47,7 +48,7 @@ class MetaInfoSeeder extends Seeder
             [
                 'id'          => 9,
                 'resource_id' => 4,
-                'class'       => 'Dgvirtual\Demo\Entities\Testuser',
+                'class'       => Testuser::class,
                 'key'         => 'blog',
                 'value'       => 'https://myblog.org',
                 'created_at'  => '2025-02-12 17:03:33',
@@ -56,7 +57,7 @@ class MetaInfoSeeder extends Seeder
             [
                 'id'          => 10,
                 'resource_id' => 5,
-                'class'       => 'Dgvirtual\Demo\Entities\Testuser',
+                'class'       => Testuser::class,
                 'key'         => 'blog',
                 'value'       => 'https://myblog.org',
                 'created_at'  => '2025-02-12 17:03:33',

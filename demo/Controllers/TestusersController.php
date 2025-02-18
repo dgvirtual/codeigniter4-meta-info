@@ -10,6 +10,7 @@
 
 namespace Dgvirtual\Demo\Controllers;
 
+use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Controller;
 use Dgvirtual\Demo\Entities\Testuser;
 use Dgvirtual\Demo\Models\TestuserModel;
@@ -33,7 +34,7 @@ class TestusersController extends Controller
     /**
      * List users.
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return string
      */
     public function index()
     {
@@ -48,7 +49,7 @@ class TestusersController extends Controller
     /**
      * Show create form.
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return string
      */
     public function create()
     {
@@ -62,7 +63,7 @@ class TestusersController extends Controller
      *
      * @param int $id
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return string
      */
     public function edit($id)
     {
@@ -80,7 +81,7 @@ class TestusersController extends Controller
      *
      * @param int|null $id
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return ResponseInterface
      */
     public function save($id = null)
     {
@@ -123,7 +124,7 @@ class TestusersController extends Controller
      *
      * @param int $id
      *
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return ResponseInterface
      */
     public function delete($id)
     {

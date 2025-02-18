@@ -10,6 +10,9 @@
 
 namespace Tests\Support;
 
+use Tests\Support\Database\Seeds\TestusersSeeder;
+use Tests\Support\Database\Seeds\MetaInfoSeeder;
+use Config\Database;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 
@@ -60,8 +63,8 @@ abstract class DatabaseTestCase extends CIUnitTestCase
      * @var array|string
      */
     protected $seed = [
-        'Tests\Support\Database\Seeds\TestusersSeeder',
-        'Tests\Support\Database\Seeds\MetaInfoSeeder',
+        TestusersSeeder::class,
+        MetaInfoSeeder::class,
     ];
 
     /**
@@ -79,7 +82,7 @@ abstract class DatabaseTestCase extends CIUnitTestCase
      */
     private function outputDatabaseSchema()
     {
-        $db     = \Config\Database::connect();
+        $db     = Database::connect();
         $tables = $db->listTables();
 
         foreach ($tables as $table) {
@@ -102,7 +105,7 @@ abstract class DatabaseTestCase extends CIUnitTestCase
      */
     protected function printTableContent(string $tableName)
     {
-        $db      = \Config\Database::connect();
+        $db      = Database::connect();
         $query   = $db->table($db->DBPrefix . $tableName)->get();
         $results = $query->getResultArray();
 

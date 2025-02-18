@@ -10,6 +10,7 @@
 
 namespace Dgvirtual\Demo\Models;
 
+use Dgvirtual\Demo\Config\Testusers;
 use CodeIgniter\Model;
 use Dgvirtual\Demo\Entities\Testuser;
 use Dgvirtual\MetaInfo\Traits\WithMeta;
@@ -53,7 +54,7 @@ class TestuserModel extends Model
      */
     public function search(string $term, int $limit = 100, int $offset = 0): array
     {
-        $termInMeta = config(\Dgvirtual\Demo\Config\Testusers::class)->includeMetaFieldsInSearch;
+        $termInMeta = config(Testusers::class)->includeMetaFieldsInSearch;
 
         // Generate the select clause using the WithMeta trait method
         $selectClause = $this->generateMetaSelectClause($termInMeta, Testuser::class);
