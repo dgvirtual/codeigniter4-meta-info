@@ -11,7 +11,7 @@ those classes.
 
 ![PHP](https://img.shields.io/badge/PHP-%5E8.1-blue)
 ![CodeIgniter](https://img.shields.io/badge/CodeIgniter-%5E4.5-blue)
-[![GitHub license](https://github.com/dgvirtual/codeigniter4-meta-info)](https://github.com/dgvirtual/codeigniter4-meta-info/blob/develop/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/dgvirtual/codeigniter4-meta-info)](https://github.com/dgvirtual/codeigniter4-meta-info/blob/develop/LICENSE)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dgvirtual/codeigniter4-meta-info/pulls)
 
 
