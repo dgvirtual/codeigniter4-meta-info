@@ -10,8 +10,8 @@
 
 namespace Tests\Support\Database\Seeds;
 
-use Dgvirtual\Demo\Entities\Testuser;
 use CodeIgniter\Database\Seeder;
+use Dgvirtual\Demo\Entities\Testuser;
 
 class MetaInfoSeeder extends Seeder
 {

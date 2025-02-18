@@ -113,8 +113,6 @@ trait HasMeta
 
     /**
      * Does the entry have this meta information?
-     *
-     * @return bool
      */
     public function hasMeta(string $key): bool
     {

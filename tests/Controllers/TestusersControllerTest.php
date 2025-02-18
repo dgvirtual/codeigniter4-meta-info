@@ -10,12 +10,12 @@
 
 namespace Tests\Controllers;
 
-use Tests\Support\Database\Seeds\TestusersSeeder;
-use Tests\Support\Database\Seeds\MetaInfoSeeder;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\ControllerTestTrait;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Dgvirtual\Demo\Controllers\TestusersController;
+use Tests\Support\Database\Seeds\MetaInfoSeeder;
+use Tests\Support\Database\Seeds\TestusersSeeder;
 use Tests\Support\DatabaseHelperTrait;
 
 /**

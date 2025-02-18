@@ -10,14 +10,14 @@
 
 namespace Tests\Feature;
 
-use Tests\Support\Database\Seeds\TestusersSeeder;
-use Tests\Support\Database\Seeds\MetaInfoSeeder;
-use Dgvirtual\Demo\Entities\Testuser;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
 use Config\Services;
 use Dgvirtual\Demo\Controllers\TestusersController;
+use Dgvirtual\Demo\Entities\Testuser;
+use Tests\Support\Database\Seeds\MetaInfoSeeder;
+use Tests\Support\Database\Seeds\TestusersSeeder;
 use Tests\Support\DatabaseHelperTrait;
 
 /**

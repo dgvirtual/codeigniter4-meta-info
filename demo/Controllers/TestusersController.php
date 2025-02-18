@@ -10,8 +10,8 @@
 
 namespace Dgvirtual\Demo\Controllers;
 
-use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\ResponseInterface;
 use Dgvirtual\Demo\Entities\Testuser;
 use Dgvirtual\Demo\Models\TestuserModel;
 
