@@ -222,18 +222,20 @@ trait HasMeta
     public function syncMeta(array $post): void
     {
         $this->hydrateMeta();
-        helper('setting');
 
         $inserts = [];
         $updates = [];
         $deletes = [];
 
+        $legal = [];
+
         $metaInfo = config("{$this->configClass}")->metaFields;
+
         if (empty($metaInfo)) {
             return;
         }
 
-        foreach ($metaInfo as $group => $fields) {
+        foreach ($metaInfo as $fields) {
             if (! is_array($fields) || $fields === []) {
                 continue;
             }
@@ -241,6 +243,8 @@ trait HasMeta
             foreach (array_keys($fields) as $field) {
                 $field    = strtolower($field);
                 $existing = array_key_exists($field, $this->meta);
+                // add to legal list
+                $legal[] = $field;
 
                 // Not existing and no value?
                 if (! $existing && ! array_key_exists($field, $post)) {
@@ -275,22 +279,30 @@ trait HasMeta
                     ];
                 }
             }
-
-            $model = model(MetaModel::class);
-            if ($deletes !== []) {
-                $model->whereIn('id', $deletes)->delete();
-            }
-
-            if ($inserts !== []) {
-                $model->insertBatch($inserts);
-            }
-
-            if ($updates !== []) {
-                $model->updateBatch($updates, 'id');
-            }
-
-            $this->hydrateMeta(true);
         }
+
+        // check if meta in db is in `legal` list, if not, mark for deletion
+        foreach ($this->meta as $key => $value) {
+            if (! in_array($key, $legal, true)) {
+                $deletes[] = $value->id;
+            }
+        }
+
+        $model = model(MetaModel::class);
+
+        if ($deletes !== []) {
+            $model->whereIn('id', $deletes)->delete();
+        }
+
+        if ($inserts !== []) {
+            $model->insertBatch($inserts);
+        }
+
+        if ($updates !== []) {
+            $model->updateBatch($updates, 'id');
+        }
+
+        $this->hydrateMeta(true);
     }
 
     /**
