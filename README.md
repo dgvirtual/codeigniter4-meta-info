@@ -1,35 +1,32 @@
 # CodeIgniter4 Meta Info Library
 
 CodeIgniter4 Meta Info library enables use of Entity-Attribute-Value style storage for additional data of entities
-used with your models. It provides meta info functionality for CodeIgniter4, derived from [Bonfire2 project](https://github.com/lonnieezell/bonfire2).
-It allows storing user-configurable bits of information for user entity classes without the need to modify
-those classes.
+used with your models. Library is based on this functionality derived from [Bonfire2 project](https://github.com/lonnieezell/bonfire2).
+It allows storing user-configurable bits of information for your project's entity classes without the need
+to modify those classes.
 
 [![PHPUnit](https://github.com/dgvirtual/codeigniter4-meta-info/actions/workflows/phpunit.yml/badge.svg)](https://github.com/dgvirtual/codeigniter4-meta-info/actions/workflows/phpunit.yml)
 ![Coverage](https://codecov.io/gh/dgvirtual/codeigniter4-meta-info/branch/develop/graph/badge.svg)
 [![PHPStan](https://github.com/dgvirtual/codeigniter4-meta-info/actions/workflows/phpstan.yml/badge.svg)](https://github.com/dgvirtual/codeigniter4-meta-info/actions/workflows/phpstan.yml)
-
 ![PHP](https://img.shields.io/badge/PHP-%5E8.1-blue)
 ![CodeIgniter](https://img.shields.io/badge/CodeIgniter-%5E4.5-blue)
 [![GitHub license](https://img.shields.io/github/license/dgvirtual/codeigniter4-meta-info)](https://github.com/dgvirtual/codeigniter4-meta-info/blob/develop/LICENSE)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dgvirtual/codeigniter4-meta-info/pulls)
 
-
 ## Usage case
 
-Imagine you have a users table to store data of users. It may be that it belongs to some package that
-deals with users on your website. Suppose you need to add aditional fields to the user table to store additional
-information, whether this is a bio, a website URL, social links, or anything else.
+Lets say you have a `users` table to store data of users. Suppose you need to add aditional fields to the user
+table to store additional information, whether this is a bio, a website URL, social links, or anything else.
 
 You can either change the main table each time you need such changes, or, alternatively, – store such data in
 a separate table, without constantly changing the database schema.
 
 Using this library you can add additional information to a user. Moreover, such data can be seamlessly integrated
-into the Create/Edit User form so you do not have to modify that manually.
+into the Create/Edit User form so you do not have to modify that one manually on each change of user data schema.
 
 ## Installation
 
-To install this package, you can use Composer. Run the following commands in your terminal:
+Install via Composer (you will have to set minimum stability to dev, as this is pre-release library):
 
 ```cli
 composer config minimum-stability dev
@@ -284,7 +281,7 @@ Steps to enable the demo:
     });
     ```
 
-Now you can open the demo at https://localhost:8080/testusers
+Now you can open the demo at <https://localhost:8080/testusers>
 
 To disable the demo, please undo the above-mentioned changes in files. To remove the demo table, use
 Codeigniter4 [migration rollback functionality](https://codeigniter4.github.io/userguide/dbmgmt/migration.html#migrate-rollback).
