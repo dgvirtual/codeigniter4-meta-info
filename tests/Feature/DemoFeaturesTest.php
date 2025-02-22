@@ -96,7 +96,7 @@ final class DemoFeaturesTest extends CIUnitTestCase
 
         $result = $this->post('testusers/save', $data);
 
-        $result->assertRedirectTo('/testusers');
+        $result->assertRedirectTo('/testusers/display/12');
 
         // Check if the database contains the new entry
         $this->seeInDatabase('testusers', [
@@ -152,7 +152,7 @@ final class DemoFeaturesTest extends CIUnitTestCase
 
         $result = $this->post('testusers/save/1', $data);
 
-        $result->assertRedirectTo('/testusers');
+        $result->assertRedirectTo('/testusers/display/1');
 
         // Check if the database contains the new entry
         $this->seeInDatabase('testusers', [

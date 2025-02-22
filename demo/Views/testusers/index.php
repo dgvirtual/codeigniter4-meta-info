@@ -11,7 +11,7 @@
         </div>
     </form>
 
-    <a href="/users/create" class="btn btn-primary mb-3">Create New User</a>
+    <a href="/testusers/create" class="btn btn-primary mb-3">Create New User</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -20,7 +20,8 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Blog</th>
-                <th>Actions</th>
+                <th>Email</th>
+                <th class="text-end">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,11 +32,13 @@
                     <td><?= $user->first_name ?></td>
                     <td><?= $user->last_name ?></td>
                     <td><?= $user->blog ?></td>
-                    <td>
-                        <a href="/testusers/edit/<?= $user->id ?>" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="/testusers/delete/<?= $user->id ?>" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
+                    <td><?= $user->email ?></td>
+                    <td class="text-end">
+                        <div class="btn-group">
+                            <a href="/testusers/display/<?= $user->id ?>" class="btn btn-primary btn-sm">Display</a>
+                            <a href="/testusers/edit/<?= $user->id ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/testusers/delete/<?= $user->id ?>" onclick="return confirm('Are you sure you want to delete the user?')" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>

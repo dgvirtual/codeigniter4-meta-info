@@ -54,6 +54,7 @@ class TestusersController extends Controller
     public function create()
     {
         return view('Dgvirtual\Demo\testusers\create', [
+            'user'   => new Testuser(),
             'errors' => service('session')->getFlashData('errors'),
         ]);
     }
@@ -73,6 +74,23 @@ class TestusersController extends Controller
         return view('Dgvirtual\Demo\testusers\edit', [
             'user'   => $user,
             'errors' => service('session')->getFlashData('errors'),
+        ]);
+    }
+
+    /**
+     * Display the user.
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function display($id)
+    {
+        $user       = $this->model->find($id);
+        $user->meta = $user->allMetaKeyValue() ?? [];
+
+        return view('Dgvirtual\Demo\testusers\display', [
+            'user' => $user,
         ]);
     }
 
@@ -116,7 +134,7 @@ class TestusersController extends Controller
             return redirect()->back()->withInput();
         }
 
-        return redirect()->to('/testusers');
+        return redirect()->to('/testusers/display/' . $user->id);
     }
 
     /**

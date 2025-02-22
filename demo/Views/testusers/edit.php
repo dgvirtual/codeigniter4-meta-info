@@ -5,8 +5,11 @@
 } ?>
 
 <?= $this->section('content') ?>
-    <h1>Edit User</h1>
-    <form action="/testusers/save/<?= $user->id ?>" method="post">
+<h1>Edit User</h1>
+
+<form action="/testusers/save/<?= $user->id ?>" method="post">
+    <fieldset>
+        <legend>Main User Info</legend>
         <div class="mb-3">
             <label for="username" class="form-label">Username:</label>
             <input type="text" name="username" id="username" class="form-control" value="<?= old('username', $user->username) ?>">
@@ -22,11 +25,11 @@
             <input type="text" name="last_name" id="last_name" class="form-control" value="<?= old('last_name', $user->last_name) ?>">
             <?= validation_show_error('last_name') ?>
         </div>
-        <div class="mb-3">
-            <label for="blog" class="form-label">Blog:</label>
-            <input type="text" name="meta[blog]" id="blog" class="form-control" value="<?= old('meta.blog', $user->meta['blog'] ?? '') ?>">
-            <?= validation_show_error('meta.blog') ?>
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+    </fieldset>
+
+    <!-- Add dynamically generated form for user Meta Info fields -->
+    <?= view_cell('Dgvirtual\Demo\Cells\TestuserMetaInfo::metaFormFields', ['user' => $user, 'view' => 'meta_edit']) ?>
+
+    <button type="submit" class="btn btn-primary my-4">Update</button>
+</form>
 <?= $this->endSection() ?>
